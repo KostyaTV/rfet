@@ -1,0 +1,284 @@
+import turtle
+# --- Настройки экрана ---
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 700
+BG_COLOR = "lightblue"
+
+def setup_screen():
+    screen = turtle.Screen()
+    screen.bgcolor(BG_COLOR)
+    screen.setup(width=SCREEN_WIDTH, height=SCREEN_HEIGHT)
+
+# =====================================================
+# ПАРА 1 — СОЛНЫШКО
+# =====================================================
+
+SUN_CENTER_X = 280
+SUN_CENTER_Y = 195
+SUN_FACE_RADIUS = 60
+SUN_FACE_COLOR = "yellow"
+ 
+SUN_RAY_START_X = 300
+SUN_RAY_START_Y = 250
+SUN_RAY_LENGTH = 90
+SUN_RAY_COUNT = 16
+SUN_RAY_ANGLE_STEP = 22.5
+SUN_RAY_COLOR = "orange"
+SUN_RAY_WIDTH = 6
+
+def draw_sun(center_x, center_y):
+    t = turtle.Turtle()
+    t.speed(0)
+    t.hideturtle()
+ 
+    t.color(SUN_RAY_COLOR)
+    t.width(SUN_RAY_WIDTH)
+    ray_offset_x = center_x + 20 
+    ray_offset_y = center_y + 55
+ 
+    for i in range(SUN_RAY_COUNT):
+        t.penup()
+        t.goto(ray_offset_x, ray_offset_y)
+        t.pendown()
+        t.setheading(i * SUN_RAY_ANGLE_STEP)
+        t.forward(SUN_RAY_LENGTH)
+ 
+    t.width(1)
+    t.penup()
+    t.goto(center_x, center_y)
+    t.pendown()
+    t.color(SUN_FACE_COLOR)
+    t.begin_fill()
+    t.circle(SUN_FACE_RADIUS)
+    t.end_fill()
+
+# =====================================================
+# ПАРА 2 — ОБЛАКА
+# =====================================================
+
+CLOUD_COLOR = "white"
+
+# КООРДИНАТЫ ПЕРВОГО ОБЛАКА
+CLOUD_1_OFFSETS = [
+    (100, 280, 40), (70, 290, 30), (130, 290, 30),
+    (50, 270, 25), (150, 270, 25), (100, 260, 35)
+]
+
+# КООРДИНАТЫ ВТОРОГО ОБЛАКА
+CLOUD_2_OFFSETS = [
+    (-100, 280, 40), (-130, 290, 30), (-70, 290, 30),
+    (-150, 270, 25), (-50, 270, 25), (-100, 260, 35)
+]
+
+# КООРДИНАТЫ ТРЕТЬЕГО ОБЛАКА
+CLOUD_3_OFFSETS = [
+    (-300, 270, 35), (-330, 280, 25), (-270, 280, 25),
+    (-350, 260, 20), (-250, 260, 20), (-300, 250, 30)
+]
+
+def draw_cloud(base_x, base_y, offsets):
+    t = turtle.Turtle()
+    t.speed(0)
+    t.hideturtle()
+    t.color(CLOUD_COLOR)
+ 
+    for circle_x, circle_y, radius in offsets:
+        t.penup()
+        t.goto(circle_x, circle_y - radius)
+        t.pendown()
+        t.begin_fill()
+        t.circle(radius)
+        t.end_fill()
+
+# =====================================================
+# ПАРА 3 — ЦВЕТЫ
+# =====================================================
+
+STEM_COLOR = "darkgreen"
+STEM_WIDTH = 4
+STEM_LENGTH = 120
+ 
+PETAL_COUNT = 8
+PETAL_ANGLE_STEP = 45
+PETAL_RADIUS = 30
+CENTER_RADIUS = 20
+CENTER_COLOR = "orange"
+FLOWER_RED_COLOR = "red"
+FLOWER_YELLOW_COLOR = "yellow"
+FLOWER_BLUE_COLOR = "blue"
+ 
+FLOWER_RED_X = -200
+FLOWER_YELLOW_X = 0
+FLOWER_BLUE_X = 200
+FLOWER_BASE_Y = -300
+FLOWER_HEAD_Y = -180
+ 
+def draw_flower(x, y, petal_color):
+    t = turtle.Turtle()
+    t.speed(0)
+    t.hideturtle()
+ 
+    t.color(STEM_COLOR)
+    t.width(STEM_WIDTH)
+    t.penup()
+    t.goto(x, y)
+    t.pendown()
+    t.setheading(90)
+    t.forward(STEM_LENGTH)
+ 
+    t.width(1)
+    t.color(petal_color)
+    head_y = y + STEM_LENGTH
+ 
+    for i in range(PETAL_COUNT):
+        t.penup()
+        t.goto(x, head_y)
+        t.pendown()
+        t.setheading(i * PETAL_ANGLE_STEP)
+        t.begin_fill()
+        t.circle(PETAL_RADIUS, 180)
+        t.circle(PETAL_RADIUS, 180)
+        t.end_fill()
+ 
+    t.penup()
+    t.goto(x - 15, head_y - 10)
+    t.pendown()
+    t.color(CENTER_COLOR)
+    t.begin_fill()
+    t.circle(CENTER_RADIUS)    
+    t.end_fill()
+
+# =====================================================
+# ПАРА 4 — СЕРДЕЧКИ
+# =====================================================
+
+HEART_COLOR = "red"
+HEART_SIZE = 62
+HEART_CURVE_RADIUS = -35
+HEART_CURVE_ANGLE = 200
+ 
+TEXT_MAIN_CONTENT = "С 8 Марта!"
+TEXT_MAIN_COLOR = "purple"
+TEXT_MAIN_SIZE = 35
+ 
+TEXT_SUB_CONTENT = "Дорогие женщины!"
+TEXT_SUB_COLOR = "black"
+TEXT_SUB_SIZE = 25
+ 
+TEXT_WISH_CONTENT = "Пусть каждый день будет ярким!"
+TEXT_WISH_COLOR = "blue"
+TEXT_WISH_SIZE = 15
+ 
+HEART_1_X = -300
+HEART_1_Y = 50
+HEART_2_X = 300
+HEART_2_Y = 0
+ 
+TEXT_X = 0
+TEXT_MAIN_Y = 70
+TEXT_SUB_Y = 30
+TEXT_WISH_Y = 0
+
+def draw_heart(x, y):
+    t = turtle.Turtle()
+    t.speed(0)
+    t.hideturtle()
+    t.penup()
+    t.goto(x, y)
+    t.pendown()
+    t.color(HEART_COLOR)
+    t.begin_fill()
+    t.setheading(140)
+    t.forward(HEART_SIZE)
+    t.circle(HEART_CURVE_RADIUS, HEART_CURVE_ANGLE)
+    t.setheading(60)
+    t.circle(HEART_CURVE_RADIUS, HEART_CURVE_ANGLE)
+    t.forward(HEART_SIZE)
+    t.end_fill()
+
+def draw_text(x, y):
+    t = turtle.Turtle()
+    t.speed(0)
+    t.hideturtle()
+ 
+    t.penup()
+    t.goto(x, y)
+    t.pendown()
+    t.color(TEXT_MAIN_COLOR)
+    t.write(TEXT_MAIN_CONTENT, align="center", font=("Arial", TEXT_MAIN_SIZE, "normal"))
+ 
+    t.penup()
+    t.goto(x, y - 40)
+    t.pendown()
+    t.color(TEXT_SUB_COLOR)
+    t.write(TEXT_SUB_CONTENT, align="center", font=("Arial", TEXT_SUB_SIZE, "normal"))
+ 
+    t.penup()
+    t.goto(x, y - 70)
+    t.pendown()
+    t.color(TEXT_WISH_COLOR)
+    t.write(TEXT_WISH_CONTENT, align="center", font=("Arial", TEXT_WISH_SIZE, "normal"))
+
+# =====================================================
+# ПАРА 5 — ТРАВА
+# =====================================================
+
+GRASS_COLOR = "green"
+GRASS_START_X = -300
+GRASS_START_Y = -300
+GRASS_BLADE_COUNT = 24
+GRASS_STEP_X = 25
+GRASS_MAX_HEIGHT = 70
+GRASS_HEIGHT_VARIATION = 30
+GRASS_WIDTH = 3
+GRASS_THIN_WIDTH = 1
+GRASS_SEGMENTS = 10
+GRASS_SEGMENT_LENGTH = 10
+GRASS_CURVE_ANGLE = 5
+
+def draw_grass(start_x, start_y):
+    t = turtle.Turtle()
+    t.speed(0)
+    t.hideturtle()
+    t.color(GRASS_COLOR)    
+    for i in range(GRASS_BLADE_COUNT):
+        current_x = start_x + i * GRASS_STEP_X
+        t.penup()
+        t.goto(current_x, start_y)
+        t.pendown()
+ 
+        d = 1 if i % 2 == 0 else -1
+        t.setheading(75 + (i % 5) * 10)
+        t.width(GRASS_WIDTH - (i % 2))
+ 
+        n = GRASS_MAX_HEIGHT + (i % GRASS_HEIGHT_VARIATION)
+        for j in range(int(n / GRASS_SEGMENT_LENGTH)):
+            t.forward(GRASS_SEGMENT_LENGTH)
+            t.left(GRASS_CURVE_ANGLE * d)
+ 
+    t.width(1)
+
+# ОСНОВНОЙ БЛОК ВЫПОЛНЕНИЯ
+def main():
+    setup_screen()
+ 
+    draw_sun(SUN_CENTER_X, SUN_CENTER_Y)
+ 
+    draw_cloud(0, 0, CLOUD_1_OFFSETS)
+    draw_cloud(0, 0, CLOUD_2_OFFSETS)
+    draw_cloud(0, 0, CLOUD_3_OFFSETS)
+ 
+    draw_flower(FLOWER_RED_X, FLOWER_BASE_Y, FLOWER_RED_COLOR)
+    draw_flower(FLOWER_YELLOW_X, FLOWER_BASE_Y, FLOWER_YELLOW_COLOR)
+    draw_flower(FLOWER_BLUE_X, FLOWER_BASE_Y, FLOWER_BLUE_COLOR)
+ 
+    draw_heart(HEART_1_X, HEART_1_Y)
+    draw_heart(HEART_2_X, HEART_2_Y)
+    draw_text(TEXT_X, TEXT_MAIN_Y)
+ 
+    draw_grass(GRASS_START_X, GRASS_START_Y)
+ 
+    turtle.done()
+ 
+if __name__ == "__main__":
+    main()
